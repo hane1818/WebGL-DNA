@@ -1,14 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title></title>
-	<script src="lib/MV.js"></script>
-	<script src="lib/initShaders.js"></script>
-	<script src="lib/webgl-utils.js"></script>
-	<script src="dna.js"></script>
+<script id="vertex-shader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 vPosition;
+attribute vec4 vColor;
+attribute vec4 vNormal;
+attribute vec2 vTexCoord;
+
+varying vec4 fPosition;
+varying vec4 fColor;
+varying vec4 fNormal;
+varying vec2 fTexCoord;
+
+uniform mat4 modelingMatrix;
+uniform mat4 viewingMatrix;
+uniform mat4 projectionMatrix;
+uniform float volume;
+
+void main()
+{
+	vec4 vertex = vPosition;
+	vec4 N = normalize( modelingMatrix * vNormal );	// Normal vector
+
+	fPosition = modelingMatrix * vPosition;
+	fColor = vColor;
+	fNormal = N;
+	fTexCoord = vTexCoord;
+
+	// Scale the vertex with the audio volume
+	vertex.z *= 1.0 + volume;
+
+	gl_Position = projectionMatrix * viewingMatrix * modelingMatrix * vertex;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+// Note that the following are interpolated between vertices.
+varying vec4 fPosition;
+varying vec4 fColor;
+varying vec4 fNormal;
+varying vec2 fTexCoord;
+
+uniform sampler2D texture;
+
+uniform mat4 modelingMatrix;
+uniform mat4 viewingMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 lightMatrix;
+uniform vec4 lightPosition;
+uniform vec4 materialAmbient;
+uniform vec4 materialDiffuse;
+uniform vec4 materialSpecular;
+uniform float shininess;
+
+void main()
+{
+	vec4 eye = vec4(0.0, 0.0, 2.0, 1.0);  // The default eye position
+	vec4 L = normalize( lightMatrix*lightPosition - fPosition ); // Light vector
+	vec4 N = fNormal;	// Normal vector
+	vec4 V = normalize( eye - fPosition );		// Eye vector.
+	vec4 H = normalize( L + V );  // Halfway vector in the modified Phong model
+
+	// Normal variation stored in the texture is within [0,1]. Convert it to [-1, 1]
+	vec4 texel = texture2D( texture, fTexCoord ) * 2.0 - 1.0;
+	N.xy += texel.xy;
+	N = normalize( N );
+
+	// Compute terms in the illumination equation
+	vec4 ambient = materialAmbient;
+
+	float Kd = max( dot(L, N), 0.0 );
+	vec4  diffuse = Kd * materialDiffuse;
+
+	float Ks = pow( max(dot(N, H), 0.0), shininess );
+    vec4  specular = Ks * materialSpecular;
+
+    gl_FragColor = (ambient + diffuse) * texture2D( texture, fTexCoord ) + specular;
+    //gl_FragColor = (ambient + diffuse) * (0.5+fPosition*0.5) + specular;
+}
+</script>
+
+<script type="text/javascript" src="./lib/webgl-utils.js"></script>
+<script type="text/javascript" src="./lib/initShaders.js"></script>
+<script type="text/javascript" src="./lib/MV.js"></script>
+<script type="text/javascript" src="dna.js"></script>
 </head>
+
 <body>
-	<canvas id="DNA-CANVAS"></canvas>
+
+<br>
+<button id="xButton">Rotate X</button>
+<button id="yButton">Rotate Y</button>
+<button id="zButton">Rotate Z</button>
+<button id="pButton" style="background-color:#00ff00">Pause</button>
+<button id="dButton" style="background-color:#6688cc">Depth Test</button>
+<br>
+<audio id="myAudio" src="fish.mp3" controls=""></audio>
+<br>
+<canvas id="gl-canvas" width="1280" height="720">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
 </body>
 </html>
