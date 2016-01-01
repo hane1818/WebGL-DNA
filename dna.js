@@ -98,13 +98,13 @@ var vertices = [
 
 // Using off-white cube for testing
 var vertexColors = [
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
-	vec4( 1.0, 1.0, 0.8, 1.0 ),  
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
+	vec4( 1.0, 1.0, 0.8, 1.0 ),
 	vec4( 1.0, 1.0, 0.8, 1.0 )
 ];
 
@@ -123,7 +123,7 @@ function configureTexture( image ) {
     gl.generateMipmap( gl.TEXTURE_2D );
     gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR );
     gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
-    
+
     gl.uniform1i(gl.getUniformLocation(program, "texture"), 0);
 }
 
@@ -135,31 +135,31 @@ function quad(a, b, c, d) {
      var normal = vec4(normal);
      normal = normalize(normal);
 
-    pointsArray.push(vertices[a]); 
+    pointsArray.push(vertices[a]);
 	 colorsArray.push(vertexColors[a]);
-     normalsArray.push(normal); 
+     normalsArray.push(normal);
      texCoordsArray.push(texCoord[0]);
-    pointsArray.push(vertices[b]); 
+    pointsArray.push(vertices[b]);
 	 colorsArray.push(vertexColors[b]);
-     normalsArray.push(normal); 
+     normalsArray.push(normal);
      texCoordsArray.push(texCoord[1]);
-    pointsArray.push(vertices[c]); 
+    pointsArray.push(vertices[c]);
 	 colorsArray.push(vertexColors[c]);
-     normalsArray.push(normal);   
+     normalsArray.push(normal);
      texCoordsArray.push(texCoord[2]);
 
-    pointsArray.push(vertices[a]);  
+    pointsArray.push(vertices[a]);
 	 colorsArray.push(vertexColors[a]);
-     normalsArray.push(normal); 
+     normalsArray.push(normal);
      texCoordsArray.push(texCoord[0]);
-    pointsArray.push(vertices[c]); 
+    pointsArray.push(vertices[c]);
 	 colorsArray.push(vertexColors[c]);
-     normalsArray.push(normal); 
+     normalsArray.push(normal);
      texCoordsArray.push(texCoord[2]);
-    pointsArray.push(vertices[d]); 
+    pointsArray.push(vertices[d]);
 	 colorsArray.push(vertexColors[d]);
      normalsArray.push(normal);
-     texCoordsArray.push(texCoord[3]);	 
+     texCoordsArray.push(texCoord[3]);
 }
 
 
@@ -174,31 +174,31 @@ function colorCube()
 }
 
 var analyser;
-var frequencyData = new Array();
+var frequencyData = new Uint8Array();
 
 window.onload = function init()
 {
     var canvas = document.getElementById( "gl-canvas" );
-    
+
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  // Experimenting with HTML5 audio
- 
+
   var context = new AudioContext();
   var audio = document.getElementById('myAudio');
   var audioSrc = context.createMediaElementSource(audio);
   var sourceJs = context.createScriptProcessor(2048); // createJavaScriptNode() deprecated.
-  
+
 
   analyser = context.createAnalyser();
-  
+
   // we could configure the analyser: e.g. analyser.fftSize (for further infos read the spec)
     analyser.smoothingTimeConstant = 0.6;
 	analyser.fftSize = 512;
 
-  // we have to connect the MediaElementSource with the analyser 
+  // we have to connect the MediaElementSource with the analyser
 	audioSrc.connect(analyser);
 	analyser.connect(sourceJs);
 	sourceJs.buffer = audioSrc.buffer;
@@ -219,9 +219,9 @@ window.onload = function init()
     //
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-    
+
     //  Load shaders and initialize attribute buffers
-    
+
     program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
@@ -229,9 +229,9 @@ window.onload = function init()
 	// We don't use indices and ELEMENT_ARRAY_BUFFER (as in previous example)
 	// because we need to assign different face normals to shared vertices.
 	colorCube();
-    
+
     // vertex array attribute buffer
-    
+
     var vBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW );
@@ -241,21 +241,21 @@ window.onload = function init()
     gl.enableVertexAttribArray( vPosition );
 
     // color array atrribute buffer
-    
+
     var cBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(colorsArray), gl.STATIC_DRAW );
 
-    var vColor = gl.getAttribLocation( program, "vColor" );
-    gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vColor );
+    //var vColor = gl.getAttribLocation( program, "vColor" );
+    //gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
+    //gl.enableVertexAttribArray( vColor );
 
     // normal array atrribute buffer
 
     var nBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, nBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(normalsArray), gl.STATIC_DRAW );
-    
+
     var vNormal = gl.getAttribLocation( program, "vNormal" );
     gl.vertexAttribPointer( vNormal, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vNormal );
@@ -265,7 +265,7 @@ window.onload = function init()
     var tBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, tBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(texCoordsArray), gl.STATIC_DRAW );
-    
+
     var vTexCoord = gl.getAttribLocation( program, "vTexCoord" );
     gl.vertexAttribPointer( vTexCoord, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vTexCoord );
@@ -274,36 +274,36 @@ window.onload = function init()
     // Initialize a texture
     //
     var image = new Image();
-    image.onload = function() { 
+    image.onload = function() {
         configureTexture( image );
     }
     image.src = "bump.jpg";
 
 	// uniform variables in shaders
-    modelingLoc   = gl.getUniformLocation(program, "modelingMatrix"); 
-    viewingLoc    = gl.getUniformLocation(program, "viewingMatrix"); 
-    projectionLoc = gl.getUniformLocation(program, "projectionMatrix"); 
-    lightMatrixLoc= gl.getUniformLocation(program, "lightMatrix"); 
+    modelingLoc   = gl.getUniformLocation(program, "modelingMatrix");
+    viewingLoc    = gl.getUniformLocation(program, "viewingMatrix");
+    projectionLoc = gl.getUniformLocation(program, "projectionMatrix");
+    lightMatrixLoc= gl.getUniformLocation(program, "lightMatrix");
 
 	volumeLoc = gl.getUniformLocation(program, "volume");
 
-    gl.uniform4fv( gl.getUniformLocation(program, "lightPosition"), 
+    gl.uniform4fv( gl.getUniformLocation(program, "lightPosition"),
        flatten(lightPosition) );
     gl.uniform4fv( gl.getUniformLocation(program, "materialAmbient"),
        flatten(materialAmbient));
     gl.uniform4fv( gl.getUniformLocation(program, "materialDiffuse"),
        flatten(materialDiffuse) );
-    gl.uniform4fv( gl.getUniformLocation(program, "materialSpecular"), 
-       flatten(materialSpecular) );	       
+    gl.uniform4fv( gl.getUniformLocation(program, "materialSpecular"),
+       flatten(materialSpecular) );
     gl.uniform1f( gl.getUniformLocation(program, "shininess"), materialShininess);
 
-    //event listeners for buttons 
+    //event listeners for buttons
     document.getElementById( "xButton" ).onclick = rotateX;
     document.getElementById( "yButton" ).onclick = rotateY;
     document.getElementById( "zButton" ).onclick = rotateZ;
     document.getElementById( "pButton" ).onclick = function() {paused=!paused;};
     document.getElementById( "dButton" ).onclick = function() {depthTest=!depthTest;};
-	
+
 	// event handlers for mouse input (borrowed from "Learning WebGL" lesson 11)
 	canvas.onmousedown = handleMouseDown;
     document.onmouseup = handleMouseUp;
@@ -317,7 +317,7 @@ function render() {
 	                mult(rotate(theta[yAxis], 0, 1, 0),rotate(theta[zAxis], 0, 0, 1)));
 
 	//if (paused)	modeling = moonRotationMatrix;
-	
+
 	viewing = lookAt(eyePosition, [0,0,0], [0,1,0]);
 
 	projection = perspective(45, 1.0, 1.0, 3.0);
@@ -340,13 +340,13 @@ function render() {
 	var N2 = 2*N+1;
 	var step = 1.0/N2;
 	var size = step * 0.6;
-	
+
 	for (i=-N; i<=N; i++) {
 		// render frame based on values in frequencyData
-		gl.uniform1f( volumeLoc, frequencyData[Math.floor(256/N2)*(i+N)] /255 * N );	
+		gl.uniform1f( volumeLoc, frequencyData[Math.floor(256/N2)*(i+N)] /255 * N );
 
 		for (j=-0; j<=0; j++) {
-			for (k=-0; k<=0; k++) {				
+			for (k=-0; k<=0; k++) {
 //				var cloned = mult(mult(translate(step*i, step*j, step*k), scale(0.12, 0.12, 0.12)), modeling);
 				var cloned = mult(modeling, mult(translate(step*i, step*j, step*k), scale(size, size, size)));
 				cloned = mult(cloned , rotate(180/N*(i+N),1,0,0));
