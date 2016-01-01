@@ -50,14 +50,14 @@ function handleMouseMove(event) {
 function rotateX() {
 	paused = 0;
     axis = xAxis;
+	theta[yAxis] = 0;
+    theta[zAxis] = 0;
 };
 function rotateY() {
 	paused = 0;
 	axis = yAxis;
-};
-function rotateZ() {
-	paused = 0;
-	axis = zAxis;
+	theta[xAxis] = 192.0;
+    theta[zAxis] = 640.0;
 };
 
 
@@ -220,7 +220,7 @@ window.onload = function init()
     //  Configure WebGL
     //
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
+    gl.clearColor( 0.93, 0.93, 0.93, 1.0 );
 
     //  Load shaders and initialize attribute buffers
 
@@ -302,9 +302,7 @@ window.onload = function init()
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = rotateX;
     document.getElementById( "yButton" ).onclick = rotateY;
-    document.getElementById( "zButton" ).onclick = rotateZ;
     document.getElementById( "pButton" ).onclick = function() {paused=!paused;};
-    document.getElementById( "dButton" ).onclick = function() {depthTest=!depthTest;};
 
 	// event handlers for mouse input (borrowed from "Learning WebGL" lesson 11)
 	canvas.onmousedown = handleMouseDown;
