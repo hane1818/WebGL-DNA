@@ -1,6 +1,6 @@
 var program;
 
-var N = 127 ;  // The number of cubes will be (2N+1)^3
+var N = 20 ;  // The number of cubes will be (2N+1)^3
 
 var xAxis = 0;
 var yAxis = 1;
@@ -20,19 +20,17 @@ var lastMouseY = null;
 var moonRotationMatrix = mat4();
 
 function handleMouseDown(event) {
-    mouseDown = true;
-    lastMouseX = event.clientX;
+	mouseDown = true;
+	lastMouseX = event.clientX;
 	lastMouseY = event.clientY;
 }
 
 function handleMouseUp(event) {
-    mouseDown = false;
+	mouseDown = false;
 }
 
 function handleMouseMove(event) {
-    if (!mouseDown) {
-      return;
-    }
+	if (!mouseDown) return;
 
     var newX = event.clientX;
     var newY = event.clientY;
@@ -98,14 +96,14 @@ var vertices = [
 
 // Using off-white cube for testing
 var vertexColors = [
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 ),
-	vec4( 1.0, 1.0, 0.8, 1.0 )
+	vec4( 0.80, 0.86, 0.22, 1.0 ),
+	vec4( 0.13, 0.59, 0.95, 1.0 ),
+	vec4( 0.13, 0.59, 0.95, 1.0 ),
+	vec4( 0.80, 0.86, 0.22, 1.0 ),
+	vec4( 0.61, 0.15, 0.69, 1.0 ),
+	vec4( 1.00, 0.92, 0.23, 1.0 ),
+	vec4( 1.00, 0.92, 0.23, 1.0 ),
+	vec4( 0.61, 0.15, 0.69, 1.0 )
 ];
 
 var lightPosition = vec4( 0.0, 100.0, 200.0, 1.0 );
@@ -135,31 +133,35 @@ function quad(a, b, c, d) {
      var normal = vec4(normal);
      normal = normalize(normal);
 
-    pointsArray.push(vertices[a]);
-	 colorsArray.push(vertexColors[a]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[0]);
-    pointsArray.push(vertices[b]);
-	 colorsArray.push(vertexColors[b]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[1]);
-    pointsArray.push(vertices[c]);
-	 colorsArray.push(vertexColors[c]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[2]);
+	pointsArray.push(vertices[a]);
+	colorsArray.push(vertexColors[a]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[0]);
 
-    pointsArray.push(vertices[a]);
-	 colorsArray.push(vertexColors[a]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[0]);
-    pointsArray.push(vertices[c]);
-	 colorsArray.push(vertexColors[c]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[2]);
-    pointsArray.push(vertices[d]);
-	 colorsArray.push(vertexColors[d]);
-     normalsArray.push(normal);
-     texCoordsArray.push(texCoord[3]);
+	pointsArray.push(vertices[b]);
+	colorsArray.push(vertexColors[b]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[1]);
+
+	pointsArray.push(vertices[c]);
+	colorsArray.push(vertexColors[c]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[2]);
+
+	pointsArray.push(vertices[a]);
+	colorsArray.push(vertexColors[a]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[0]);
+
+	pointsArray.push(vertices[c]);
+	colorsArray.push(vertexColors[c]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[2]);
+
+	pointsArray.push(vertices[d]);
+	colorsArray.push(vertexColors[d]);
+	normalsArray.push(normal);
+	texCoordsArray.push(texCoord[3]);
 }
 
 
@@ -181,7 +183,7 @@ window.onload = function init()
     var canvas = document.getElementById( "gl-canvas" );
 
     gl = WebGLUtils.setupWebGL( canvas );
-    if ( !gl ) { alert( "WebGL isn't available" ); }
+    if ( !gl ) alert( "WebGL isn't available" );
 
  //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  // Experimenting with HTML5 audio
@@ -246,9 +248,9 @@ window.onload = function init()
     gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(colorsArray), gl.STATIC_DRAW );
 
-    //var vColor = gl.getAttribLocation( program, "vColor" );
-    //gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
-    //gl.enableVertexAttribArray( vColor );
+    var vColor = gl.getAttribLocation( program, "vColor" );
+    gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vColor );
 
     // normal array atrribute buffer
 
@@ -261,7 +263,7 @@ window.onload = function init()
     gl.enableVertexAttribArray( vNormal );
 
     // texture-coordinate array atrribute buffer
-
+	/*
     var tBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, tBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(texCoordsArray), gl.STATIC_DRAW );
@@ -269,15 +271,15 @@ window.onload = function init()
     var vTexCoord = gl.getAttribLocation( program, "vTexCoord" );
     gl.vertexAttribPointer( vTexCoord, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vTexCoord );
-
+*/
     //
     // Initialize a texture
     //
-    var image = new Image();
-    image.onload = function() {
-        configureTexture( image );
-    }
-    image.src = "bump.jpg";
+    //var image = new Image();
+    //image.onload = function() {
+    //	configureTexture( image );
+    //}
+    //image.src = "bump.jpg";
 
 	// uniform variables in shaders
     modelingLoc   = gl.getUniformLocation(program, "modelingMatrix");
@@ -316,8 +318,6 @@ function render() {
 	modeling = mult(rotate(theta[xAxis], 1, 0, 0),
 	                mult(rotate(theta[yAxis], 0, 1, 0),rotate(theta[zAxis], 0, 0, 1)));
 
-	//if (paused)	modeling = moonRotationMatrix;
-
 	viewing = lookAt(eyePosition, [0,0,0], [0,1,0]);
 
 	projection = perspective(45, 1.0, 1.0, 3.0);
@@ -325,7 +325,9 @@ function render() {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
     if (! paused) theta[axis] += 2.0;
-	if (depthTest) gl.enable(gl.DEPTH_TEST); else gl.disable(gl.DEPTH_TEST);
+	depthTest?
+		gl.enable(gl.DEPTH_TEST) :
+		gl.disable(gl.DEPTH_TEST);
 
     gl.uniformMatrix4fv( viewingLoc,    0, flatten(viewing) );
 	gl.uniformMatrix4fv( projectionLoc, 0, flatten(projection) );
@@ -334,18 +336,15 @@ function render() {
 	// update data in frequencyData
     analyser.getByteFrequencyData(frequencyData);
 
-	// Uncomment the next line to see the frequencyData[] in the console
-	//console.log(frequencyData)
-
 	var N2 = 2*N+1;
-	var step = 1.0/N2;
-	var size = step * 0.6;
+	var step = 1.5/N2;
+	var size = step * 0.3;
 
 	for (i=-N; i<=N; i++) {
 		// render frame based on values in frequencyData
-		gl.uniform1f( volumeLoc, frequencyData[Math.floor(256/N2)*(i+N)] /255 * N );
+		gl.uniform1f( volumeLoc, frequencyData[Math.floor(256/N2)*(i+N)] /275 * N + N*3/4 );
 
-		for (j=-0; j<=0; j++) {
+		for (j=-0; j<=0; j++)
 			for (k=-0; k<=0; k++) {
 //				var cloned = mult(mult(translate(step*i, step*j, step*k), scale(0.12, 0.12, 0.12)), modeling);
 				var cloned = mult(modeling, mult(translate(step*i, step*j, step*k), scale(size, size, size)));
@@ -353,7 +352,6 @@ function render() {
 				gl.uniformMatrix4fv( modelingLoc, 0, flatten(cloned) );
 				gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 			}
-		}
 	}
 
     requestAnimFrame( render );
