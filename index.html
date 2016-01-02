@@ -93,12 +93,12 @@
 		text-align: center;
 		background: #EEEEEE;
 	}
-	canvas {
-		height: 500px;
-		width: 100%;
+	header {
+		display: block;
+		padding: 2.5vh 0;
+		height: 5vh;
 	}
 	button {
-		margin: 0 .5rem;
 		height: 30px;
 		width: 100px;
 		color: #fff;
@@ -106,20 +106,24 @@
 		font-weight: 700;
 		border: 0;
 	}
+	canvas {
+		height: 89vh;
+		width: 100%;
+	}
 	button, audio {
+		margin: 0 .5rem;
 		vertical-align: top;
 	}
 </style>
 </head>
 
 <body>
-
-	<br>
-	<button id="xButton" style="background: #F44336;">水平</button>
-	<button id="yButton" style="background: #2196F3;">垂直</button>
-	<button id="pButton" style="background-color:#00ff00">Pause</button>
-	<audio id="myAudio" src="fish.mp3" controls=""></audio>
-	<br>
+	<header>
+		<button id="xButton" style="background: #F44336;">Horizontal</button>
+		<button id="yButton" style="background: #2196F3;">Vertical</button>
+		<button id="pButton" style="background-color:#00ff00">Pause</button>
+		<audio id="myAudio" src="fish.mp3" controls=""></audio>
+	</header>
 	<canvas id="gl-canvas" width="1280" height="720">
 		Oops ... your browser doesn't support the HTML5 canvas element
 	</canvas>
