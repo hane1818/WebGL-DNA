@@ -123,6 +123,33 @@
 		document.getElementById('myAudio').src = musicSrc;
 		document.getElementById('myAudio').play();
 	}
+	function playNextMusic()
+	{
+		var musicList = document.getElementById('musicList');
+		var music = document.getElementById('myAudio')
+		var musicSrc = music.src;
+		var re = new RegExp(/(?:music\/)(\S+)(?:\.mp3)/);
+		var musicName = re.exec(musicSrc)[1];
+		console.log(musicName);
+		for(var i=0; i<musicList.options.length ; i+=1)
+		{
+			if(musicList[i].value == musicName)
+			{
+				if(i == musicList.options.length-1)
+				{
+					musicSrc = "music/" + musicList[0].value + ".mp3";
+					musicList.value = musicList[0].value;
+				}
+				else
+				{
+					musicSrc = "music/" + musicList[i+1].value + ".mp3";
+					musicList.value = musicList[i+1].value;
+				}
+				music.src = musicSrc;
+				music.play();
+			}
+		}
+	}
 </script>
 </head>
 
@@ -135,20 +162,20 @@
 			<option value="fish">
 				Fish
 			</option>
-			<option value="SoDaGreen - No Sleep">
+			<option value="SoDaGreen-NoSleep">
 				蘇打綠 - 無眠
 			</option>
-			<option value="BEYOND - sea & sky">
+			<option value="BEYOND-sea&sky">
 				Beyond - 海闊天空
 			</option>
-			<option value="YoonMiRae - I'll Listen to What You Have to Say">
+			<option value="YoonMiRae-I'llListenToWhatYouHaveToSay">
 				尹美萊 - 聆聽你的話
 			</option>
-			<option value="BrunoMars - Just The Way You Are">
+			<option value="BrunoMars-JustTheWayYouAre">
 				Bruno Mars - Just The Way You Are
 			</option>
 		</select>
-		<audio id="myAudio" src="music/fish.mp3" controls=""></audio>
+		<audio id="myAudio" src="music/fish.mp3" controls="" onended="playNextMusic()"></audio>
 	</header>
 	<canvas id="gl-canvas" width="1280" height="720">
 		Oops ... your browser doesn't support the HTML5 canvas element
