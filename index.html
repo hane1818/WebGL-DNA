@@ -115,6 +115,14 @@
 		vertical-align: top;
 	}
 </style>
+<script type="text/javascript">
+	function changeMusic()
+	{
+		var musicOption = document.getElementById('musicList').value;
+		var musicSrc = "music/" + musicOption + ".mp3";
+		document.getElementById('myAudio').src = musicSrc;
+	}
+</script>
 </head>
 
 <body>
@@ -122,7 +130,24 @@
 		<button id="xButton" style="background: #F44336;">Horizontal</button>
 		<button id="yButton" style="background: #2196F3;">Vertical</button>
 		<button id="pButton" style="background-color:#00ff00">Pause</button>
-		<audio id="myAudio" src="music/SoDaGreen - No Sleep.mp3" controls=""></audio>
+		<select id="musicList" onchange="changeMusic()">
+			<option value="fish">
+				Fish
+			</option>
+			<option value="SoDaGreen - No Sleep">
+				蘇打綠 - 無眠
+			</option>
+			<option value="BEYOND - sea & sky">
+				Beyond - 海闊天空
+			</option>
+			<option value="YoonMiRae - I'll Listen to What You Have to Say">
+				尹美萊 - 聆聽你的話
+			</option>
+			<option>
+				Bruno Mars - Just The Way You Are
+			</option>
+		</select>
+		<audio id="myAudio" src="music/YoonMiRae - I'll Listen to What You Have to Say.mp3" controls=""></audio>
 	</header>
 	<canvas id="gl-canvas" width="1280" height="720">
 		Oops ... your browser doesn't support the HTML5 canvas element
