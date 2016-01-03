@@ -223,7 +223,7 @@
 		//  Configure WebGL
 		//
 		gl.viewport( 0, 0, canvas.width, canvas.height );
-		gl.clearColor( 0.93, 0.93, 0.93, 1.0 );					// BACKGROUND COLOR
+		gl.clearColor( 0.05, 0.05, 0.08, 1.0 );					// BACKGROUND COLOR
 
 		//  Load shaders and initialize attribute buffers
 
