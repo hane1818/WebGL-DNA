@@ -1,7 +1,7 @@
 (function() {
 	var program;
 
-	var N = 20 ;  // The number of cubes will be (2N+1)^3
+	var N = 40 ;  // The number of cubes will be (2N+1)^3
 
 	var xAxis = 0;
 	var yAxis = 1;
@@ -49,16 +49,18 @@
 
 	// event handlers for button clicks
 	function rotateX() {
+		N = 40;
 		paused = 0;
 		axis = xAxis;
 		theta[yAxis] = 0;
 		theta[zAxis] = 0;
 	};
 	function rotateY() {
+		N = 20;
 		paused = 0;
 		axis = yAxis;
 		theta[xAxis] = 192.0;
-		theta[zAxis] = 640.0;
+		theta[zAxis] = 630.0;
 	};
 
 
@@ -85,14 +87,14 @@
 	];
 
 	var vertices = [
-		vec4( -0.5, -0.5,  0.5, 1 ),
-		vec4( -0.5,  0.5,  0.5, 1 ),
-		vec4(  0.5,  0.5,  0.5, 1 ),
-		vec4(  0.5, -0.5,  0.5, 1 ),
-		vec4( -0.5, -0.5, -0.5, 1 ),
-		vec4( -0.5,  0.5, -0.5, 1 ),
-		vec4(  0.5,  0.5, -0.5, 1 ),
-		vec4(  0.5, -0.5, -0.5, 1 )
+		vec4( -0.8, -0.5,  0.8, 1 ),
+		vec4( -0.8,  0.5,  0.8, 1 ),
+		vec4(  0.8,  0.5,  0.8, 1 ),
+		vec4(  0.8, -0.5,  0.8, 1 ),
+		vec4( -0.8, -0.5, -0.8, 1 ),
+		vec4( -0.8,  0.5, -0.8, 1 ),
+		vec4(  0.8,  0.5, -0.8, 1 ),
+		vec4(  0.8, -0.5, -0.8, 1 )
 	];
 
 	// COLOR of EACH VERTEX of DNA
