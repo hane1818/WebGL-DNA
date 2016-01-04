@@ -9,7 +9,7 @@
 
 	var axis = 0;
 	var theta = [ 0, 0, 0 ];
-	var paused = 0;
+	var paused = 1;
 	var depthTest = 1;
 	var eyePosition = [ 0, 0, 2 ];
 
@@ -50,14 +50,12 @@
 	// event handlers for button clicks
 	function rotateX() {
 		N = 40;
-		paused = 0;
 		axis = xAxis;
 		theta[yAxis] = 0;
 		theta[zAxis] = 0;
 	};
 	function rotateY() {
 		N = 20;
-		paused = 0;
 		axis = yAxis;
 		theta[xAxis] = 192.0;
 		theta[zAxis] = 630.0;
