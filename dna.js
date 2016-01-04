@@ -214,6 +214,14 @@
 			analyser.getByteFrequencyData(frequencyData);
 		};
 
+		audio.onplay = function(e) {
+			paused = 0;
+		};
+
+		audio.onpause = function(e) {
+			paused = 1;
+		};
+
 		//audio.play();
 		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
