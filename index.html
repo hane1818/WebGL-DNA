@@ -97,34 +97,22 @@
 		display: block;
 		padding: 2.5vh 0;
 		height: 5vh;
+		line-height: 1.8rem;
+	}
+	button, select {
+		height: 1.7rem;
+		width: 6.5rem;
+		font-weight: 700;
+		border: double 3px #CACACA;
+		background-color: transparent;
+		color: #F0F0F0;
 	}
 	button {
-		height: 30px;
-		width: 100px;
-		color: #fff;
-		font-size: 1rem;
-		font-weight: 700;
-		border: 0;
+		margin: 0 .1rem;
 	}
 	canvas {
 		height: 89vh;
 		width: 100%;
-	}
-	button, audio {
-		margin: 0 .5rem;
-		vertical-align: top;
-	}
-	select {
-		box-sizing: border-box;
-		margin: 0 .5rem;
-		width: 15.5rem;
-		height: 1.7rem;
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		appearance: none;
-		border: double 3px #CACACA;
-		background: url(arrow.png) 100% / 1.3rem no-repeat transparent;
-		color: #F0F0F0;
 	}
 	option {
 		border-bottom: 1px solid #585858;
@@ -133,6 +121,22 @@
 	}
 	option:last-child {
 		border-bottom: 1px solid #CACACA;
+	}
+	#ctrlButtons {
+		display: inline-block;
+	}
+	#ctrlButtons, #myAudio, #musicList {
+		margin: 0 .5rem;
+		vertical-align: top;
+	}
+	#musicList {
+		box-sizing: border-box;
+		width: 15.5rem;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+		background: url(arrow.png) 100% / 1.3rem no-repeat transparent;
+		font-weight: normal;
 	}
 </style>
 <script type="text/javascript">
@@ -175,9 +179,11 @@
 
 <body>
 	<header>
-		<button id="xButton" style="background: #F44336;">Horizontal</button>
-		<button id="yButton" style="background: #2196F3;">Vertical</button>
-		<button id="pButton" style="background-color:#00ff00">Pause</button>
+		<div id="ctrlButtons">
+			<button id="xButton">Horizontal</button>
+			<button id="yButton">Vertical</button>
+			<button id="pButton">Pause</button>
+		</div>
 		<select id="musicList" onchange="changeMusic()">
 			<option value="fish" selected="">
 				Fish
