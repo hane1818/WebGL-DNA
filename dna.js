@@ -291,7 +291,10 @@
 		//event listeners for buttons
 		document.getElementById( "xButton" ).onclick = rotateX;
 		document.getElementById( "yButton" ).onclick = rotateY;
-		document.getElementById( "pButton" ).onclick = function() {paused=!paused;};
+		document.getElementById( "pButton" ).onclick = function() {
+			this.innerHTML = this.innerHTML === "Pause" ? "Run" : "Pause";
+			paused=!paused;
+		};
 
 		// event handlers for mouse input (borrowed from "Learning WebGL" lesson 11)
 		canvas.onmousedown = handleMouseDown;

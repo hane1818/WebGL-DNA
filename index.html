@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>WebGL - DNA</title>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
 <script id="vertex-shader" type="x-shader/x-vertex">
 	precision mediump float;
 
@@ -90,6 +92,7 @@
 	* {
 		outline: none;
 		background-color: #0D0D14;
+		font-family: 'Raleway', sans-serif;
 	}
 	body {
 		margin: 0;
@@ -107,13 +110,13 @@
 		width: 6.5rem;
 		border: double 3px #CACACA;
 		color: #F0F0F0;
-		font-weight: 700;
+		font-weight: normal;
 	}
 	button {
 		margin: 0 .1rem !important;
 	}
 	canvas {
-		height: 89vh;
+		height: 81vh;
 		width: 100%;
 	}
 	option {
@@ -140,6 +143,23 @@
 		background: url(arrow.png) 100% / 1.3rem no-repeat transparent;
 		font-weight: normal;
 	}
+	footer {
+		padding: 2vh 0 0;
+		height: 5vh;
+		width: 90%;
+		margin: 0 5%;
+		color: #fff;
+		border-top: 3px double #fff;
+	}
+	footer a {
+		margin: 0 1rem;
+		color: #fff;
+		text-decoration: none;
+	}
+	footer a:hover {
+		text-decoration: underline;
+	}
+
 </style>
 <script type="text/javascript">
 	function changeMusic()
@@ -156,12 +176,11 @@
 		var musicSrc = music.src;
 		var re = new RegExp(/(?:music\/)(\S+)(?:\.mp3)/);
 		var musicName = re.exec(musicSrc)[1];
-		console.log(musicName);
 		for(var i=0; i<musicList.options.length ; i+=1)
 		{
 			if(musicList[i].value == musicName)
 			{
-				if(i == musicList.options.length-1)
+				if(i === musicList.options.length-1)
 				{
 					musicSrc = "music/" + musicList[0].value + ".mp3";
 					musicList.value = musicList[0].value;
@@ -184,20 +203,20 @@
 		<div id="ctrlButtons">
 			<button id="xButton">Horizontal</button>
 			<button id="yButton">Vertical</button>
-			<button id="pButton">Pause</button>
+			<button id="pButton">Run</button>
 		</div>
 		<select id="musicList" onchange="changeMusic()">
 			<option value="fish" selected="">
 				Fish
 			</option>
 			<option value="SoDaGreen-NoSleep">
-				蘇打綠 - 無眠
+				So Da Green - No Sleep
 			</option>
 			<option value="BEYOND-sea&sky">
-				Beyond - 海闊天空
+				Beyond - Vast Sky &amp; Boundless Sea
 			</option>
 			<option value="YoonMiRae-I'llListenToWhatYouHaveToSay">
-				尹美萊 - 聆聽你的話
+				Yoon Mi-rae - I'll listen to what you have to say
 			</option>
 			<option value="BrunoMars-JustTheWayYouAre">
 				Bruno Mars - Just The Way You Are
@@ -208,6 +227,9 @@
 	<canvas id="gl-canvas" width="1280" height="720">
 		Oops ... your browser doesn't support the HTML5 canvas element
 	</canvas>
+	<footer>
+		<a href="https://github.com/wi1d5ky">wi1d5ky</a> + <a href="https://github.com/1818">hane1818</a> = <a href="https://github.com/wi1d5ky/WebGL-DNA">WebGL-DNA</a> @ <a href="https://github.com/wi1d5ky/WebGL-DNA/blob/gh-pages/LICENSE">MIT</a>
+	</footer>
 
 </body>
 </html>
