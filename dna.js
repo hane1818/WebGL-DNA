@@ -294,8 +294,8 @@
 		document.getElementById( "xButton" ).onclick = rotateX;
 		document.getElementById( "yButton" ).onclick = rotateY;
 		document.getElementById( "pButton" ).onclick = function() {
-			this.innerHTML = this.innerHTML === "Pause" ? "Run" : "Pause";
 			paused=!paused;
+			this.innerHTML = paused ? "Run" : "Pause";
 		};
 
 		// event handlers for mouse input (borrowed from "Learning WebGL" lesson 11)
