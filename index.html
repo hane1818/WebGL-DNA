@@ -101,9 +101,16 @@
 	}
 	header {
 		display: block;
-		padding: 2.5vh 0;
+		padding: 2.5vh 0 5vh;
+		width: 100%;
 		min-height: 5vh;
 		line-height: 1.8rem;
+		position: absolute;
+		top: -7.5vh;
+		transition-duration: .35s;
+	}
+	header:hover {
+		top: 0;
 	}
 	button, select {
 		height: 1.7rem;
@@ -116,6 +123,7 @@
 		margin: 0 .1rem !important;
 	}
 	canvas {
+		margin-top: 10vh;
 		height: 81vh;
 		width: 100%;
 	}
