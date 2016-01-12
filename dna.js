@@ -216,10 +216,12 @@
 
 		audio.onplay = function(e) {
 			paused = 0;
+			document.getElementById( "pButton" ).innerHTML = "Pause";
 		};
 
 		audio.onpause = function(e) {
 			paused = 1;
+			document.getElementById( "pButton" ).innerHTML = "Run";
 		};
 
 		//audio.play();
