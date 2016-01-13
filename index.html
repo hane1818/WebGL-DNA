@@ -214,7 +214,7 @@
 			<button id="pButton">Run</button>
 		</div>
 		<select id="musicList" onchange="changeMusic()">
-			<option value="fish" selected="">
+			<option value="fish">
 				Fish
 			</option>
 			<option value="SoDaGreen-NoSleep">
@@ -231,6 +231,15 @@
 			</option>
 		</select>
 		<audio id="myAudio" src="music/fish.mp3" controls="" onended="playNextMusic()"></audio>
+		<!--random for initial music-->
+		<script type="text/javascript">
+			var musicList = document.getElementById('musicList');
+			var index = Math.floor((Math.random() * musicList.options.length));
+			var music = musicList[index].value;
+			var musicSrc = "music/" + music + ".mp3";
+			document.getElementById('myAudio').src = musicSrc;
+			musicList.value = musicList[index].value;
+		</script>
 	</header>
 	<canvas id="gl-canvas" width="1280" height="720">
 		Oops ... your browser doesn't support the HTML5 canvas element
