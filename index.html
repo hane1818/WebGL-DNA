@@ -234,11 +234,11 @@
 		<!--random for initial music-->
 		<script type="text/javascript">
 			var musicList = document.getElementById('musicList');
-			var index = Math.floor((Math.random() * musicList.options.length));
-			var music = musicList[index].value;
-			var musicSrc = "music/" + music + ".mp3";
+			var musicId = Math.floor((Math.random() * musicList.length));
+			var musicName = musicList[musicId].value;
+			var musicSrc = "music/" + musicName + ".mp3";
 			document.getElementById('myAudio').src = musicSrc;
-			musicList.value = musicList[index].value;
+			musicList.value = musicList[musicId].value;
 		</script>
 	</header>
 	<canvas id="gl-canvas" width="1280" height="720">
